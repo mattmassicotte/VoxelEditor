@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://cabnbplnt3kbm"]
+
+[ext_resource type="Script" uid="uid://cgsc23k23t6hg" path="res://addons/voxeleditor/scenes/sphere_settings.gd" id="1_ty7b6"]
+
+[node name="SphereSettings" type="Control" unique_id=641805560]
+custom_minimum_size = Vector2(0, 113)
+custom_maximum_size = Vector2(-1, 113)
+layout_mode = 3
+anchor_right = 1.7530001
+anchor_bottom = 0.17400001
+offset_right = 0.54382324
+offset_bottom = 0.24799347
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ty7b6")
+
+[node name="SizeSlider" type="HSlider" parent="." unique_id=1818072188]
+layout_mode = 0
+offset_right = 711.0
+offset_bottom = 111.0
+min_value = 1.0
+max_value = 200.0
+value = 1.0
+
+[node name="SizeLabel" type="Label" parent="." unique_id=67863056]
+layout_mode = 0
+offset_left = 735.0
+offset_top = 30.0
+offset_right = 876.0
+offset_bottom = 87.0
+text = "1.000000"
+
+[connection signal="value_changed" from="SizeSlider" to="." method="_on_size_value_changed"]

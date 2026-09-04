@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://dij4vhjklo4rm"]
+
+[ext_resource type="Script" uid="uid://oawh5tw1sjyj" path="res://addons/voxeleditor/scenes/toolbar.gd" id="1_wpfl7"]
+
+[node name="Toolbar" type="Control" unique_id=2043031057]
+custom_minimum_size = Vector2(165, 0)
+custom_maximum_size = Vector2(165, -1)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -987.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wpfl7")
+
+[node name="AddButton" type="Button" parent="." unique_id=528985384]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 12.0
+offset_right = 117.0
+offset_bottom = 60.0
+text = "Add"
+
+[node name="RemoveButton" type="Button" parent="." unique_id=1878935947]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 79.0
+offset_right = 117.0
+offset_bottom = 127.0
+text = "Remove"
+
+[connection signal="pressed" from="AddButton" to="." method="_on_add_button_pressed"]
+[connection signal="pressed" from="RemoveButton" to="." method="_on_remove_button_pressed"]
