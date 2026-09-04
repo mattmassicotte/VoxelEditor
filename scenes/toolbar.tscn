@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dij4vhjklo4rm"]
 
-[ext_resource type="Script" uid="uid://oawh5tw1sjyj" path="res://addons/voxeleditor/scenes/toolbar.gd" id="1_wpfl7"]
+[ext_resource type="Script" uid="uid://oawh5tw1sjyj" path="res://addons/VoxelEditor/scenes/toolbar.gd" id="1_wpfl7"]
 
 [node name="Toolbar" type="Control" unique_id=2043031057]
 custom_minimum_size = Vector2(165, 0)

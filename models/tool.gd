@@ -46,11 +46,11 @@ class Sphere extends Tool:
 
 
 	func _init():
-		var indicator_scene = preload("res://addons/voxeleditor/scenes/indicator.tscn")
+		var indicator_scene = preload("res://addons/VoxelEditor/scenes/indicator.tscn")
 		_indicator = indicator_scene.instantiate()
 		_indicator.scene_file_path = "" # make local
 		
-		var settings_scene = preload("res://addons/voxeleditor/scenes/sphere_settings.tscn")
+		var settings_scene = preload("res://addons/VoxelEditor/scenes/sphere_settings.tscn")
 		_settings = settings_scene.instantiate()
 		var welf: WeakRef = weakref(self)
 		_settings.radius_changed.connect(func (value):

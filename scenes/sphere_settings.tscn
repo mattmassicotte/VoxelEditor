@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cabnbplnt3kbm"]
 
-[ext_resource type="Script" uid="uid://cgsc23k23t6hg" path="res://addons/voxeleditor/scenes/sphere_settings.gd" id="1_ty7b6"]
+[ext_resource type="Script" uid="uid://cgsc23k23t6hg" path="res://addons/VoxelEditor/scenes/sphere_settings.gd" id="1_ty7b6"]
 
 [node name="SphereSettings" type="Control" unique_id=641805560]
 custom_minimum_size = Vector2(0, 113)

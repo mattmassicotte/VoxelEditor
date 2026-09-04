@@ -17,7 +17,7 @@ func _disable_plugin() -> void:
 
 
 func _enter_tree() -> void:
-	var toolbar_scene = preload("res://addons/voxeleditor/scenes/toolbar.tscn")
+	var toolbar_scene = preload("res://addons/VoxelEditor/scenes/toolbar.tscn")
 	_toolbar = toolbar_scene.instantiate()
 	_toolbar.scene_file_path = "" # make local
 
