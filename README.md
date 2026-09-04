@@ -4,9 +4,16 @@ A Godot editor plugin for working with [godot_voxel](https://github.com/Zylann/g
 
 ## Features
 
-Currently, very limited. This can add and remove SDF values from a `VoxelLodTerrain` by using a spherical brush that follows the mouse.
+Currently, **very** limited.
+
+- Add/Subtract from a `VoxelLodTerrain`
+- Spherical Brushes
+- Target visualization
+- Undo Support
 
 I'm investigating texture painting right now.
+
+![Example screenshot](example.png)
 
 ## Integration
 
