@@ -2,6 +2,13 @@ class_name Target
 extends RefCounted
 
 
+# This should not work this way, long-term
+enum Mode {
+	ADD,
+	REMOVE,
+	PAINT,
+}
+
 var node: VoxelNode = null:
 	set(value):
 		var update_needed = node != value
@@ -12,6 +19,7 @@ var node: VoxelNode = null:
 
 var tool: VoxelTool = null
 var location: Vector3 = Vector3.ZERO
+var mode: Mode = Mode.ADD
 
 
 func _update_tool() -> void:

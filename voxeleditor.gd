@@ -2,8 +2,8 @@
 extends EditorPlugin
 
 
-var _active_tool: Tool = null
-var _sphere_tool := Tool.Sphere.new()
+var _current_brush: Brush = null
+var _sphere_brush := Brush.Sphere.new()
 var _target := Target.AbsolutePosition.new()
 var _tool_active: bool = false
 var _toolbar: Toolbar
@@ -26,7 +26,7 @@ func _enter_tree() -> void:
 	add_control_to_container(EditorPlugin.CONTAINER_SPATIAL_EDITOR_SIDE_LEFT, _toolbar)
 	
 	# add all the per-tool settings
-	_install_settings(_sphere_tool.get_settings_node())
+	_install_settings(_sphere_brush.get_settings_node())
 
 	_toolbar_item_selected(Toolbar.ItemKind.ADD)
 
@@ -36,7 +36,7 @@ func _exit_tree() -> void:
 	_target.node = null
 	_on_target_node_changed()
 
-	_uninstall_settings(_sphere_tool.get_settings_node())
+	_uninstall_settings(_sphere_brush.get_settings_node())
 
 	remove_control_from_container(EditorPlugin.CONTAINER_SPATIAL_EDITOR_SIDE_LEFT, _toolbar)
 	_toolbar.queue_free()
@@ -70,11 +70,11 @@ func _on_target_node_changed() -> void:
 	var valid = is_instance_valid(_target.node)
 
 	if valid:
-		_active_tool.activate(_target)
+		_current_brush.activate(_target)
 	else:
-		_active_tool.deactivate()
+		_current_brush.deactivate()
 
-	var settings = _active_tool.get_settings_node()
+	var settings = _current_brush.get_settings_node()
 	if settings != null:
 		settings.visible = valid
 
@@ -82,7 +82,7 @@ func _on_target_node_changed() -> void:
 func _forward_3d_gui_input(p_viewport_camera: Camera3D, p_event: InputEvent) -> AfterGUIInput:
 	if p_event is InputEventMouseMotion:
 		_target.update_location(p_viewport_camera)
-		_active_tool.preview(_target, p_viewport_camera.get_viewport())
+		_current_brush.preview(_target, p_viewport_camera.get_viewport())
 			
 	if p_event is InputEventMouseButton and p_event.button_index == MOUSE_BUTTON_LEFT:
 		if p_event.is_pressed():
@@ -100,28 +100,30 @@ func _forward_3d_gui_input(p_viewport_camera: Camera3D, p_event: InputEvent) -> 
 
 
 func _toolbar_item_selected(kind: Toolbar.ItemKind) -> void:
-	if _active_tool != null:
-		_active_tool.deactivate()
+	if _current_brush != null:
+		_current_brush.deactivate()
+
+	_current_brush = _sphere_brush
 
 	match kind:
 		Toolbar.ItemKind.ADD:
-			_active_tool = _sphere_tool
-			_active_tool.additive = true
+			_target.mode = Target.Mode.ADD
 
 		Toolbar.ItemKind.REMOVE:
-			_active_tool = _sphere_tool
-			_active_tool.additive = false
+			_target.mode = Target.Mode.ADD
+		
+		Toolbar.ItemKind.PAINT:
+			_target.mode = Target.Mode.PAINT
 	
-	if _active_tool != null && _target.node != null:
-		_active_tool.activate(_target)
+	if _current_brush != null && _target.node != null:
+		_current_brush.activate(_target)
 
 
 func _apply_active_tool() -> void:
-	print("_apply_active_tool")
-	assert(_active_tool != null)
+	assert(_current_brush != null)
 	assert(_target != null)
 	
-	var op = _active_tool.make_operation(_target)
+	var op = _current_brush.make_operation(_target)
 
 	var aabb = op.get_affected_volume()
 	if _target.tool.is_area_editable(aabb) == false:
@@ -130,7 +132,9 @@ func _apply_active_tool() -> void:
 		
 	var undo_redo := get_undo_redo()
 
-	undo_redo.create_action("Apply Voxel Operation")
+	var name = op.get_name()
+
+	undo_redo.create_action("Apply %s" % name)
 
 	var buffer = _target.node.format.create_buffer(aabb.size)
 	const mask = VoxelBuffer.CHANNEL_SDF | VoxelBuffer.CHANNEL_INDICES | VoxelBuffer.CHANNEL_WEIGHTS

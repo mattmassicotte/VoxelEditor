@@ -1,15 +1,10 @@
 @abstract
-class_name Tool
+class_name Brush
 extends RefCounted
 
 
 @abstract
-func make_operation(target: Target) -> Operation
-
-
-@abstract
 func preview(target: Target, viewport: SubViewport) -> void
-
 
 @abstract
 func activate(target: Target) -> void
@@ -23,12 +18,7 @@ func get_settings_node() -> Node:
 	return null
 
 
-var action_name: String:
-	get:
-		return "<none>"
-
-
-class Sphere extends Tool:
+class Sphere extends Brush:
 	var _indicator: MeshInstance3D
 	var _settings: SphereSettings
 
@@ -37,12 +27,6 @@ class Sphere extends Tool:
 		set(value):
 			radius = value
 			_indicator.scale = Vector3(value * 2.0, value * 2.0, value * 2.0)
-
-
-	var additive: bool:
-		set(value):
-			additive = value
-			_indicator.mesh.material.albedo_color = _color_for_mode()
 
 
 	func _init():
@@ -58,9 +42,8 @@ class Sphere extends Tool:
 		)
 		
 		radius = _settings.radius
-		additive = true
 
-		
+
 	func get_settings_node() -> Node:
 		return _settings
 
@@ -78,11 +61,18 @@ class Sphere extends Tool:
 
 
 	func make_operation(target: Target) -> Operation:
-		var op = Operation.Sphere.new()
+		var op: Operation.Sphere
 		
+		match target.mode:
+			Target.Mode.ADD:
+				op = Operation.AddSphere.new()
+			Target.Mode.REMOVE:
+				op = Operation.AddSphere.new()
+			Target.Mode.PAINT:
+				op = Operation.PaintSphere.new()
+				
 		op.center = target.location
 		op.radius = radius
-		op.additive = additive
 		
 		return op
 
@@ -90,14 +80,15 @@ class Sphere extends Tool:
 	func preview(target: Target, viewport: Viewport) -> void:
 		_install_indicator_if_needed(viewport)
 		_indicator.position = target.location
+		
+		match target.mode:
+			Target.Mode.ADD:
+				_indicator.mesh.material.albedo_color = Color(0.1, 0.7, 0.1, 0.3)
+			Target.Mode.REMOVE:
+				_indicator.mesh.material.albedo_color = Color(0.7, 0.1, 0.1, 0.3)
+			Target.Mode.PAINT:
+				_indicator.mesh.material.albedo_color = Color(0.1, 0.1, 0.7, 0.3)
 
-	
-	func _color_for_mode() -> Color:
-		if additive:
-			return Color(0.1, 0.7, 0.1, 0.3)
-		else:
-			return Color(0.7, 0.1, 0.1, 0.3)
-	
 	
 	func _install_indicator_if_needed(viewport: Viewport):
 		var current_parent = _indicator.get_parent()
