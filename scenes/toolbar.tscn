@@ -30,5 +30,14 @@ offset_right = 117.0
 offset_bottom = 127.0
 text = "Remove"
 
+[node name="Paint" type="Button" parent="." unique_id=2100696366]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 144.0
+offset_right = 118.0
+offset_bottom = 192.0
+text = "Paint"
+
 [connection signal="pressed" from="AddButton" to="." method="_on_add_button_pressed"]
 [connection signal="pressed" from="RemoveButton" to="." method="_on_remove_button_pressed"]
+[connection signal="pressed" from="Paint" to="." method="_on_paint_pressed"]
