@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://jj2en8a1d21m"]
+
+[ext_resource type="Script" uid="uid://cwq83kn7c5y2x" path="res://addons/VoxelEditor/scenes/cursor_settings.gd" id="1_fuxxt"]
+
+[node name="CursorSettings" type="HBoxContainer" unique_id=143547820]
+custom_minimum_size = Vector2(230, 48)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -922.0
+offset_bottom = -600.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+script = ExtResource("1_fuxxt")
+
+[node name="Label" type="Label" parent="." unique_id=747876747]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Distance:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="." unique_id=1255521644]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="text_changed" from="LineEdit" to="." method="_on_line_edit_text_changed"]

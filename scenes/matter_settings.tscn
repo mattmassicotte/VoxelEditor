@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://g4ep7x0uxxo"]
+
+[ext_resource type="Script" uid="uid://g6hw8gwcw87e" path="res://addons/VoxelEditor/scenes/matter_settings.gd" id="1_vxymc"]
+
+[node name="MatterSettings" type="HBoxContainer" unique_id=1533094334]
+custom_minimum_size = Vector2(400, 0)
+propagate_maximum_size = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -752.0
+offset_bottom = -600.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vxymc")
+
+[node name="StrengthLabel" type="Label" parent="." unique_id=1318896495]
+custom_minimum_size = Vector2(72, 0)
+layout_mode = 2
+text = "Strength:"
+
+[node name="StrengthSlider" type="HSlider" parent="." unique_id=1237971743]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = 0.1
+max_value = 4.0
+step = 0.1
+value = 1.0
+
+[node name="StrengthText" type="TextEdit" parent="." unique_id=1879812788]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+
+[node name="ScaleLabel" type="Label" parent="." unique_id=2048331322]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "Scale:"
+
+[node name="ScaleSlider" type="HSlider" parent="." unique_id=747919248]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 10.0
+step = 0.1
+value = 1.0
+
+[node name="ScaleText" type="TextEdit" parent="." unique_id=1481124224]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+
+[connection signal="value_changed" from="StrengthSlider" to="." method="_on_strength_slider_value_changed"]
+[connection signal="value_changed" from="ScaleSlider" to="." method="_on_scale_slider_value_changed"]

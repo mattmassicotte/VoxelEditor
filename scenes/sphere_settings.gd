@@ -23,4 +23,4 @@ func _on_size_value_changed(value: float) -> void:
 
 
 func _update_label() -> void:
-	$SizeLabel.text = "%f" % radius
+	$SizeLabel.text = "%.1f" % radius
