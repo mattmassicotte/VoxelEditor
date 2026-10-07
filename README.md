@@ -21,7 +21,7 @@ Currently, **very** limited.
 - Enable the plugin with Project > Project Settings > Plugins
 - Select a `VoxelTerrain` node in the spacial editor
 
-Right now, the texture painting tool is only a proof-of-concept. It "works" with a mesher in mixel4 texturing mode, but there's currently no way to control any of the tool parameters.
+Right now, the texture painting tool only works with a mesher in mixel4 texturing mode.
 
 ## Contributing and Collaboration
 
