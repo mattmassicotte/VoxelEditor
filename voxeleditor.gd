@@ -13,7 +13,10 @@ var _matter_settings: MatterSettings
 var _paint_mode_settings: PaintSettings
 var _sphere_settings: SphereSettings
 
+# new stuff
+var _toolbar_control: ToolbarControl
 
+# Core Plugin Hooks
 func _enable_plugin() -> void:
 	pass
 
@@ -23,6 +26,9 @@ func _disable_plugin() -> void:
 
 
 func _enter_tree() -> void:
+	_set_up()
+	return
+
 	var toolbar_scene = preload("res://addons/VoxelEditor/scenes/toolbar.tscn")
 	_toolbar = toolbar_scene.instantiate()
 	_toolbar.scene_file_path = "" # make local
@@ -67,6 +73,9 @@ func _enter_tree() -> void:
 
 
 func _exit_tree() -> void:
+	_teardown()
+	return
+
 	if is_instance_valid(_current_brush):
 		_current_brush.deactivate()
 
@@ -74,15 +83,79 @@ func _exit_tree() -> void:
 	_toolbar.queue_free()
 
 
+# EditorPlugin overrides
+
 func _handles(p_object: Object) -> bool:
 	return p_object is VoxelNode
 
 
 func _edit(p_object: Object) -> void:
-	_target.node = p_object if p_object is VoxelNode else null
-	_toolbar.visible = is_instance_valid(_target.node)
+	_target.node = p_object
 
-	_on_target_node_changed()
+	_toolbar_control.target_updated(_target)
+
+
+func _forward_3d_gui_input(p_viewport_camera: Camera3D, p_event: InputEvent) -> AfterGUIInput:
+	if p_event is InputEventMouseMotion:
+		_target.update_location(p_viewport_camera)
+		_on_target_updated(p_viewport_camera.get_viewport())
+			
+	if p_event is InputEventMouseButton and p_event.button_index == MOUSE_BUTTON_LEFT:
+		if p_event.is_pressed():
+			_tool_active = true
+			_apply_active_tool()
+			return AfterGUIInput.AFTER_GUI_INPUT_STOP
+		else:
+			_tool_active = false
+	
+	if p_event is InputEventMouseMotion and _tool_active:
+		_apply_active_tool()
+		return AfterGUIInput.AFTER_GUI_INPUT_STOP 
+	
+	return AfterGUIInput.AFTER_GUI_INPUT_PASS
+
+
+# setup/teardown
+
+func _set_up() -> void:
+	var toolbar_control_scene = preload("res://addons/VoxelEditor/scenes/toolbar_control.tscn")
+	_toolbar_control = toolbar_control_scene.instantiate()
+	_toolbar_control.scene_file_path = "" # make local
+	_toolbar_control.visible = false
+	_toolbar_control.reset.connect(func ():
+		_reload()
+	)
+
+	add_control_to_container(EditorPlugin.CONTAINER_SPATIAL_EDITOR_MENU, _toolbar_control)
+	
+	_handle_existing_selection()
+
+
+func _teardown() -> void:
+	_target.node = null
+
+	remove_control_from_container(EditorPlugin.CONTAINER_SPATIAL_EDITOR_MENU, _toolbar_control)
+	_toolbar_control.queue_free()
+	_toolbar_control = null
+
+
+func _handle_existing_selection() -> void:
+	var selected_nodes = EditorInterface.get_selection().get_selected_nodes()
+	
+	if selected_nodes.size() != 1:
+		return
+	
+	var selected_node = selected_nodes.front()
+	
+	if _handles(selected_node):
+		_edit(selected_node)
+
+
+## This is useful for plugin development.
+func _reload() -> void:
+	print("[VoxelEditor] reload")
+	_teardown()
+	_set_up()
 
 
 func _on_target_node_changed() -> void:
@@ -105,28 +178,9 @@ func _on_cursor_distance_changed(distance: float) -> void:
 
 
 func _on_target_updated(viewport: SubViewport) -> void:
+	return
 	_current_operation.update(_target)
 	_current_brush.preview(_target, _toolbar.mode, viewport)
-
-
-func _forward_3d_gui_input(p_viewport_camera: Camera3D, p_event: InputEvent) -> AfterGUIInput:
-	if p_event is InputEventMouseMotion:
-		_target.update_location(p_viewport_camera)
-		_on_target_updated(p_viewport_camera.get_viewport())
-			
-	if p_event is InputEventMouseButton and p_event.button_index == MOUSE_BUTTON_LEFT:
-		if p_event.is_pressed():
-			_tool_active = true
-			_apply_active_tool()
-			return AfterGUIInput.AFTER_GUI_INPUT_STOP
-		else:
-			_tool_active = false
-	
-	if p_event is InputEventMouseMotion and _tool_active:
-		_apply_active_tool()
-		return AfterGUIInput.AFTER_GUI_INPUT_STOP 
-	
-	return AfterGUIInput.AFTER_GUI_INPUT_PASS
 
 
 func _on_tool_changed(mode: Toolbar.Mode, brush: Toolbar.Brush) -> void:
