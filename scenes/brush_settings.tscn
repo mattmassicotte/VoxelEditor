@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://de05owrgklup8"]
+
+[ext_resource type="Texture2D" uid="uid://bu64i6cpmkr41" path="res://addons/VoxelEditor/images/add_circle.svg" id="1_msurh"]
+[ext_resource type="Texture2D" uid="uid://cr84weo0t6s2q" path="res://addons/VoxelEditor/images/add_box.svg" id="2_rfkf7"]
+
+[node name="BrushSettings" type="VBoxContainer" unique_id=474377008]
+custom_minimum_size = Vector2(400, 500)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -752.0
+offset_bottom = -148.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SelectionContainer" type="HBoxContainer" parent="." unique_id=1748591020]
+custom_minimum_size = Vector2(160, 80)
+layout_mode = 2
+size_flags_horizontal = 0
+alignment = 1
+
+[node name="AbsoluteSphereAddButton" type="Button" parent="SelectionContainer" unique_id=1532236697]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("1_msurh")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="AbsoluteBoxAddButton" type="Button" parent="SelectionContainer" unique_id=811156709]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("2_rfkf7")
+flat = true
+icon_alignment = 1
+expand_icon = true

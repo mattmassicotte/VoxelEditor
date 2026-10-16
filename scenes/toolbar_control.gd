@@ -4,21 +4,22 @@ extends Control
 
 signal reset()
 
+var _brush_settings: Node
+var _brush_panel := PopupPanel.new()
 var _current_operation: Operation
-var _panel := PopupPanel.new()
-@onready var _texture_button: Button = $TextureButton
+var _texture_panel := PopupPanel.new()
 var _texture_settings: TextureSettings
+@onready var _brush_button: Button = $BrushButton
+@onready var _texture_button: Button = $TextureButton
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	get_parent().add_child(_panel)
-
 	var texture_settings_scene = preload("res://addons/VoxelEditor/scenes/texture_settings.tscn")
 	_texture_settings = texture_settings_scene.instantiate()
 	_texture_settings.scene_file_path = ""
 	_texture_settings.reset_pressed.connect(func ():
-		_panel.visible = false
+		_texture_panel.visible = false
 		reset.emit()
 	)
 	_texture_settings.texture_selected.connect(func (index: int):
@@ -34,7 +35,15 @@ func _ready() -> void:
 			_current_operation.config.texture_opacity = value
 	)
 	
-	_panel.add_child(_texture_settings)
+	get_parent().add_child(_texture_panel)
+	_texture_panel.add_child(_texture_settings)
+	
+	var brush_settings_scene = preload("res://addons/VoxelEditor/scenes/brush_settings.tscn")
+	_brush_settings = brush_settings_scene.instantiate()
+	_brush_settings.scene_file_path = ""
+	
+	get_parent().add_child(_brush_panel)
+	_brush_panel.add_child(_brush_settings)
 
 
 func target_updated(target: Target) -> void:
@@ -46,6 +55,16 @@ func _on_texture_button_pressed() -> void:
 	var pos = _texture_button.get_screen_transform().origin
 	pos.y += _texture_button.size.y
 
-	_panel.set_position(pos)
-	_panel.set_size(_texture_settings.get_minimum_size())
-	_panel.visible = true
+	_texture_panel.set_position(pos)
+	_texture_panel.set_size(_texture_settings.get_minimum_size())
+	_texture_panel.visible = true
+
+
+func _on_brush_button_pressed() -> void:
+	var pos = _brush_button.get_screen_transform().origin
+	pos.y += _brush_button.size.y
+	pos.x -= _brush_settings.size.x
+
+	_brush_panel.set_position(pos)
+	_brush_panel.set_size(_brush_settings.get_minimum_size())
+	_brush_panel.visible = true

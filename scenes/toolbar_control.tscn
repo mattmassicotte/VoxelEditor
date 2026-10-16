@@ -31,4 +31,5 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
+[connection signal="pressed" from="BrushButton" to="." method="_on_brush_button_pressed"]
 [connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
