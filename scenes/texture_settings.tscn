@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://yalfd4h8k8a2" path="res://addons/VoxelEditor/scenes/texture_settings.gd" id="1_i6rls"]
 
 [node name="TextureSettings" type="VBoxContainer" unique_id=1494886997]
-custom_minimum_size = Vector2(400, 450)
+custom_minimum_size = Vector2(400, 500)
 anchors_preset = -1
 anchor_right = 0.5
 anchor_bottom = 0.64000005
@@ -24,13 +24,17 @@ text = "Falloff:"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="FalloffSlider" type="HSlider" parent="FalloffContainer" unique_id=651016909]
+[node name="Slider" type="HSlider" parent="FalloffContainer" unique_id=651016909]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+min_value = 0.001
+max_value = 1.0
+step = 0.05
+value = 1.0
 
-[node name="FalloffLabel" type="Label" parent="FalloffContainer" unique_id=2014530085]
+[node name="ValueLabel" type="Label" parent="FalloffContainer" unique_id=2014530085]
 layout_mode = 2
 size_flags_horizontal = 8
 text = "1.0"
@@ -45,15 +49,16 @@ text = "Opacity:"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="HSlider" type="HSlider" parent="OpacityContainer" unique_id=289354639]
+[node name="Slider" type="HSlider" parent="OpacityContainer" unique_id=289354639]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 max_value = 1.0
 step = 0.05
+value = 1.0
 
-[node name="OpacityLabel" type="Label" parent="OpacityContainer" unique_id=991108214]
+[node name="ValueLabel" type="Label" parent="OpacityContainer" unique_id=991108214]
 layout_mode = 2
 text = "1.0"
 
@@ -70,4 +75,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Reload"
 
+[connection signal="value_changed" from="FalloffContainer/Slider" to="." method="_on_falloff_slider_value_changed"]
+[connection signal="value_changed" from="OpacityContainer/Slider" to="." method="_on_opacity_slider_value_changed"]
 [connection signal="pressed" from="ReloadButton" to="." method="_on_reload_button_pressed"]
