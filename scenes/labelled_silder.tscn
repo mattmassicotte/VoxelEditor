@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://c4m70nx048me2"]
+
+[ext_resource type="Script" uid="uid://ctomvieqycaqe" path="res://addons/VoxelEditor/scenes/labelled_silder.gd" id="1_fdn0k"]
+
+[node name="LabelledSlider" type="HBoxContainer" unique_id=137689554]
+custom_minimum_size = Vector2(0, 40)
+anchors_preset = -1
+anchor_right = 0.56200004
+anchor_bottom = 0.062000003
+offset_right = 0.57592773
+offset_bottom = -0.1760025
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fdn0k")
+
+[node name="Label" type="Label" parent="." unique_id=460696480]
+layout_mode = 2
+text = "Label"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="." unique_id=953924843]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.05
+
+[node name="ValueLabel" type="Label" parent="." unique_id=977703012]
+layout_mode = 2
+text = "Value"
+vertical_alignment = 1
+
+[connection signal="value_changed" from="HSlider" to="." method="_on_slider_value_changed"]
