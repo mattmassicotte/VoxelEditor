@@ -10,6 +10,14 @@ signal value_changed(float)
 	set(val):
 		$Label.text = val
 
+@export var min_horizontal_label_size: float:
+	get:
+		return $Label.custom_minimum_size.x
+	set(val):
+		var existing = $Label.custom_minimum_size
+		existing.x = val
+		$Label.custom_minimum_size = existing
+
 @export var max_value: float:
 	get:
 		return $HSlider.max_value

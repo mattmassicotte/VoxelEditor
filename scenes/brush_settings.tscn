@@ -3,14 +3,17 @@
 [ext_resource type="Script" uid="uid://8n78vpuybsde" path="res://addons/VoxelEditor/scenes/brush_settings.gd" id="1_1p8k0"]
 [ext_resource type="Texture2D" uid="uid://bu64i6cpmkr41" path="res://addons/VoxelEditor/images/add_circle.svg" id="1_msurh"]
 [ext_resource type="Texture2D" uid="uid://cr84weo0t6s2q" path="res://addons/VoxelEditor/images/add_box.svg" id="2_rfkf7"]
+[ext_resource type="PackedScene" uid="uid://brpuyk2mesqxv" path="res://addons/VoxelEditor/scenes/sdf_settings.tscn" id="4_bppgj"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_bppgj"]
 
 [node name="BrushSettings" type="VBoxContainer" unique_id=474377008]
-custom_minimum_size = Vector2(400, 500)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -752.0
-offset_bottom = -148.0
+custom_minimum_size = Vector2(500, 500)
+anchors_preset = -1
+anchor_right = 0.43400002
+anchor_bottom = 0.772
+offset_right = 0.031982422
+offset_bottom = -0.25601196
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_1p8k0")
@@ -26,6 +29,7 @@ custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 3
 toggle_mode = true
+button_group = SubResource("ButtonGroup_bppgj")
 icon = ExtResource("1_msurh")
 flat = true
 icon_alignment = 1
@@ -36,10 +40,24 @@ custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 3
 toggle_mode = true
+button_group = SubResource("ButtonGroup_bppgj")
 icon = ExtResource("2_rfkf7")
 flat = true
 icon_alignment = 1
 expand_icon = true
+
+[node name="HSeparator" type="HSeparator" parent="." unique_id=91660221]
+layout_mode = 2
+
+[node name="SdfSettings" parent="." unique_id=586990403 instance=ExtResource("4_bppgj")]
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="." unique_id=877802979]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=207351120]
+layout_mode = 2
+size_flags_vertical = 3
 
 [connection signal="pressed" from="SelectionContainer/AbsoluteSphereAddButton" to="." method="_on_absolute_sphere_add_button_pressed"]
 [connection signal="pressed" from="SelectionContainer/AbsoluteBoxAddButton" to="." method="_on_absolute_box_add_button_pressed"]

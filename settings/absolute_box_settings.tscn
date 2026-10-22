@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://32d5de8nb72b"]
+
+[ext_resource type="PackedScene" uid="uid://c4m70nx048me2" path="res://addons/VoxelEditor/scenes/labelled_slider.tscn" id="1_hf7bx"]
+
+[node name="AbsoluteBoxSettings" type="VBoxContainer" unique_id=1902426656]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DistanceSlider" parent="." unique_id=137689554 instance=ExtResource("1_hf7bx")]
+layout_mode = 2
+label = "Distance:"
+min_horizontal_label_size = 75.0
+max_value = 20.0
+min_value = 1.0
+
+[node name="LengthSlider" parent="." unique_id=1483524790 instance=ExtResource("1_hf7bx")]
+layout_mode = 2
+label = "Length:"
+min_horizontal_label_size = 75.0
+max_value = 50.0
+min_value = 0.1
+
+[node name="WidthSlider" parent="." unique_id=1067767475 instance=ExtResource("1_hf7bx")]
+layout_mode = 2
+label = "Width:"
+min_horizontal_label_size = 75.0
+max_value = 50.0
+min_value = 0.1
+
+[node name="HeightSlider" parent="." unique_id=1628391576 instance=ExtResource("1_hf7bx")]
+layout_mode = 2
+label = "Height:"
+min_horizontal_label_size = 75.0
+max_value = 50.0
+min_value = 0.1

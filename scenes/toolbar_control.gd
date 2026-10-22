@@ -48,6 +48,7 @@ func _ready() -> void:
 
 func target_updated(target: Target) -> void:
 	visible = target.node != null
+	_brush_settings.target_updated(target)
 	_texture_settings.target_updated(target)
 
 
