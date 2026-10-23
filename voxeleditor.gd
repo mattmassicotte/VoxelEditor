@@ -1,7 +1,6 @@
 @tool
 extends EditorPlugin
 
-
 var _current_brush: Brush = null
 var _current_mode: EditMode = null
 var _sphere_brush := Brush.Sphere.new()
@@ -96,23 +95,43 @@ func _edit(p_object: Object) -> void:
 
 
 func _forward_3d_gui_input(p_viewport_camera: Camera3D, p_event: InputEvent) -> AfterGUIInput:
+	# mouse movement
 	if p_event is InputEventMouseMotion:
-		_target.update_location(p_viewport_camera)
-		_on_target_updated(p_viewport_camera.get_viewport())
-			
+		if _tool_active:
+			_toolbar_control.cursor_location_updated(p_viewport_camera, _target, true)
+			return AfterGUIInput.AFTER_GUI_INPUT_STOP
+	
+		_toolbar_control.cursor_location_updated(p_viewport_camera, _target, false)
+		return AfterGUIInput.AFTER_GUI_INPUT_PASS
+	
+	# active left-click
 	if p_event is InputEventMouseButton and p_event.button_index == MOUSE_BUTTON_LEFT:
 		if p_event.is_pressed():
 			_tool_active = true
-			_apply_active_tool()
+			_toolbar_control.cursor_location_updated(p_viewport_camera, _target, true)
 			return AfterGUIInput.AFTER_GUI_INPUT_STOP
 		else:
 			_tool_active = false
 	
-	if p_event is InputEventMouseMotion and _tool_active:
-		_apply_active_tool()
-		return AfterGUIInput.AFTER_GUI_INPUT_STOP 
-	
 	return AfterGUIInput.AFTER_GUI_INPUT_PASS
+	
+	#if p_event is InputEventMouseMotion:
+		#_target.update_location(p_viewport_camera)
+		#_on_target_updated(p_viewport_camera.get_viewport())
+			#
+	#if p_event is InputEventMouseButton and p_event.button_index == MOUSE_BUTTON_LEFT:
+		#if p_event.is_pressed():
+			#_tool_active = true
+			#_apply_active_tool()
+			#return AfterGUIInput.AFTER_GUI_INPUT_STOP
+		#else:
+			#_tool_active = false
+	#
+	#if p_event is InputEventMouseMotion and _tool_active:
+		#_apply_active_tool()
+		#return AfterGUIInput.AFTER_GUI_INPUT_STOP 
+	#
+	#return AfterGUIInput.AFTER_GUI_INPUT_PASS
 
 
 # setup/teardown
@@ -191,7 +210,7 @@ func _on_tool_changed(mode: Toolbar.Mode, brush: Toolbar.Brush) -> void:
 		Toolbar.Brush.SPHERE:
 			_current_brush = _sphere_brush
 			_toolbar.install_brush_settings(_sphere_settings)
-			var new_op = Operation.Sphere.new()
+			var new_op = Operation.Sphere.new(true)
 			
 			new_op.radius = _sphere_settings.radius
 			new_op.center = _target.location

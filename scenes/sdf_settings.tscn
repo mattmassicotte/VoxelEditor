@@ -15,11 +15,13 @@ size_flags_horizontal = 3
 [node name="StrengthSlider" parent="." unique_id=137689554 instance=ExtResource("1_nq3fi")]
 layout_mode = 2
 label = "Strength:"
+min_horizontal_label_size = 70.0
 max_value = 10.0
 min_value = 0.001
 
 [node name="ScaleSlider" parent="." unique_id=1505575584 instance=ExtResource("1_nq3fi")]
 layout_mode = 2
 label = "Scale:"
+min_horizontal_label_size = 70.0
 max_value = 1.0
 min_value = 0.01

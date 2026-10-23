@@ -29,6 +29,7 @@ custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 3
 toggle_mode = true
+button_pressed = true
 button_group = SubResource("ButtonGroup_bppgj")
 icon = ExtResource("1_msurh")
 flat = true

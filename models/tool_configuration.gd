@@ -17,8 +17,6 @@ func apply(tool: VoxelTool) -> void:
 	tool.texture_opacity = texture_opacity
 	tool.sdf_strength = sdf_strength
 	tool.sdf_scale = sdf_scale
-	
-	print(texture_index)
 
 
 func copy() -> ToolConfiguration:
