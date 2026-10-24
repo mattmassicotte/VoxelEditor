@@ -41,10 +41,11 @@ func _ready() -> void:
 	get_parent().add_child(_texture_panel)
 	_texture_panel.add_child(_texture_settings)
 	
-	var brush_settings_scene = preload("res://addons/VoxelEditor/scenes/brush_settings.tscn")
+	var brush_settings_scene = preload("res://addons/VoxelEditor/settings/brush_settings.tscn")
 	_brush_settings = brush_settings_scene.instantiate()
 	_brush_settings.scene_file_path = ""
 	_brush_settings.operation_changed.connect(func (op: Operation):
+		_operation.cursor_exited()
 		_operation = op
 	)
 	_brush_settings.sdf_settings_changed.connect(func (strength: float, scale: float):
@@ -66,13 +67,11 @@ func set_target(value: Target) -> void:
 		target.tool.channel = VoxelBuffer.CHANNEL_SDF
 		target.tool.sdf_strength = _brush_settings.sdf_strength
 		target.tool.sdf_scale = _brush_settings.sdf_scale
+	else:
+		_operation.cursor_exited()
 		
 	_brush_settings.target_updated(target)
 	_texture_settings.target_updated(target)
-
-
-func target_updated(target: Target) -> void:
-	assert(false, "this should not be called")
 
 
 func cursor_location_updated(viewport_camera: Camera3D, apply: bool) -> void:
