@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://brpuyk2mesqxv"]
 
-[ext_resource type="PackedScene" uid="uid://c4m70nx048me2" path="res://addons/VoxelEditor/scenes/labelled_slider.tscn" id="1_nq3fi"]
+[ext_resource type="PackedScene" uid="uid://c4m70nx048me2" path="res://addons/VoxelEditor/views/labelled_slider.tscn" id="1_nq3fi"]
 
 [node name="SdfSettings" type="VBoxContainer" unique_id=586990403]
 custom_minimum_size = Vector2(0, 80)
@@ -17,11 +17,13 @@ layout_mode = 2
 label = "Strength:"
 min_horizontal_label_size = 70.0
 max_value = 10.0
-min_value = 0.001
+min_value = 0.1
+value = 1.0
 
 [node name="ScaleSlider" parent="." unique_id=1505575584 instance=ExtResource("1_nq3fi")]
 layout_mode = 2
 label = "Scale:"
 min_horizontal_label_size = 70.0
-max_value = 1.0
-min_value = 0.01
+max_value = 10.0
+min_value = 0.1
+value = 1.0

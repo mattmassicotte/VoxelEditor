@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c4m70nx048me2"]
 
-[ext_resource type="Script" uid="uid://ctomvieqycaqe" path="res://addons/VoxelEditor/scenes/labelled_slider.gd" id="1_fdn0k"]
+[ext_resource type="Script" uid="uid://ctomvieqycaqe" path="res://addons/VoxelEditor/views/labelled_slider.gd" id="1_fdn0k"]
 
 [node name="LabelledSlider" type="HBoxContainer" unique_id=137689554]
 custom_minimum_size = Vector2(0, 40)

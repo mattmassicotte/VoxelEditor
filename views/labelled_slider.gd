@@ -30,7 +30,7 @@ signal value_changed(float)
 	set(val):
 		$HSlider.min_value = val
 
-var value: float:
+@export var value: float:
 	get:
 		return $HSlider.value
 	set(value):

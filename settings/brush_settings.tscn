@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://de05owrgklup8"]
 
-[ext_resource type="Script" uid="uid://8n78vpuybsde" path="res://addons/VoxelEditor/scenes/brush_settings.gd" id="1_1p8k0"]
+[ext_resource type="Script" uid="uid://8n78vpuybsde" path="res://addons/VoxelEditor/settings/brush_settings.gd" id="1_1p8k0"]
 [ext_resource type="Texture2D" uid="uid://bu64i6cpmkr41" path="res://addons/VoxelEditor/images/add_circle.svg" id="1_msurh"]
 [ext_resource type="Texture2D" uid="uid://cr84weo0t6s2q" path="res://addons/VoxelEditor/images/add_box.svg" id="2_rfkf7"]
-[ext_resource type="PackedScene" uid="uid://brpuyk2mesqxv" path="res://addons/VoxelEditor/scenes/sdf_settings.tscn" id="4_bppgj"]
+[ext_resource type="PackedScene" uid="uid://brpuyk2mesqxv" path="res://addons/VoxelEditor/settings/sdf_settings.tscn" id="4_bppgj"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_bppgj"]
 

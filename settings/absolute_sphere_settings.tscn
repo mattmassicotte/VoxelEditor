@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://vdlt0koqg3ek"]
+
+[ext_resource type="PackedScene" uid="uid://c4m70nx048me2" path="res://addons/VoxelEditor/views/labelled_slider.tscn" id="1_dk7od"]
+
+[node name="AbsoluteSphereSettings" type="VBoxContainer" unique_id=1125459972]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DistanceSlider" parent="." unique_id=763082462 instance=ExtResource("1_dk7od")]
+layout_mode = 2
+label = "Distance:"
+min_horizontal_label_size = 70.0
+max_value = 20.0
+min_value = 1.0
+value = 10.0
+
+[node name="RadiusSlider" parent="." unique_id=137689554 instance=ExtResource("1_dk7od")]
+layout_mode = 2
+label = "Radius:"
+min_horizontal_label_size = 70.0
+max_value = 10.0
+min_value = 1.0
+value = 1.0
