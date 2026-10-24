@@ -82,7 +82,7 @@ class Sphere extends AbsoluteLocationOperation:
 		target.tool.do_sphere(location, radius)
 
 		# a second pass is necessary if we are not using the first texture
-		if _additive && target.tool.texture_index != 0:
+		if _additive and target.tool.texture_index != 0:
 			target.tool.mode = VoxelTool.MODE_TEXTURE_PAINT
 			target.tool.do_sphere(location, radius)
 

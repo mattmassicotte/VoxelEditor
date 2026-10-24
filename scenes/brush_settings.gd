@@ -60,6 +60,7 @@ func _ready() -> void:
 		print("height: ", value)
 	)
 	
+	# this simulates the first brush being selected
 	var first_button: BaseButton = _button_group.get_buttons().front()
 	first_button.set_pressed(true)
 	first_button.pressed.emit()

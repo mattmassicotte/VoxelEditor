@@ -4,7 +4,11 @@ extends Control
 
 signal reset()
 
-var _brush_settings: Node
+var is_target_valid: bool:
+	get:
+		return target != null and target.node != null
+var target: Target: set = set_target
+var _brush_settings: BrushSettings
 var _brush_panel := PopupPanel.new()
 var _operation: Operation
 var _texture_panel := PopupPanel.new()
@@ -22,16 +26,16 @@ func _ready() -> void:
 		reset.emit()
 	)
 	_texture_settings.texture_selected.connect(func (index: int):
-		if _operation != null:
-			_operation.config.texture_index = index
+		if is_target_valid:
+			target.tool.texture_index = index
 	)
 	_texture_settings.texture_falloff_changed.connect(func (value: float):
-		if _operation != null:
-			_operation.config.texture_falloff = value
+		if is_target_valid:
+			target.tool.texture_falloff = value
 	)
 	_texture_settings.texture_opacity_changed.connect(func (value: float):
-		if _operation != null:
-			_operation.config.texture_opacity = value
+		if is_target_valid:
+			target.tool.texture_opacity = value
 	)
 	
 	get_parent().add_child(_texture_panel)
@@ -43,18 +47,35 @@ func _ready() -> void:
 	_brush_settings.operation_changed.connect(func (op: Operation):
 		_operation = op
 	)
+	_brush_settings.sdf_settings_changed.connect(func (strength: float, scale: float):
+		if is_target_valid:
+			return
+
+		target.tool.sdf_strength = strength
+		target.tool.sdf_scale = scale
+	)
 	
 	get_parent().add_child(_brush_panel)
 	_brush_panel.add_child(_brush_settings)
 
 
-func target_updated(target: Target) -> void:
-	visible = target.node != null
+func set_target(value: Target) -> void:
+	target = value
+	visible = is_target_valid
+	if is_target_valid:
+		target.tool.channel = VoxelBuffer.CHANNEL_SDF
+		target.tool.sdf_strength = _brush_settings.sdf_strength
+		target.tool.sdf_scale = _brush_settings.sdf_scale
+		
 	_brush_settings.target_updated(target)
 	_texture_settings.target_updated(target)
 
 
-func cursor_location_updated(viewport_camera: Camera3D, target: Target, apply: bool) -> void:
+func target_updated(target: Target) -> void:
+	assert(false, "this should not be called")
+
+
+func cursor_location_updated(viewport_camera: Camera3D, apply: bool) -> void:
 	_operation.cursor_location_updated(viewport_camera, target, apply)
 
 

@@ -91,24 +91,24 @@ func _handles(p_object: Object) -> bool:
 func _edit(p_object: Object) -> void:
 	_target.node = p_object
 
-	_toolbar_control.target_updated(_target)
+	_toolbar_control.target = _target
 
 
 func _forward_3d_gui_input(p_viewport_camera: Camera3D, p_event: InputEvent) -> AfterGUIInput:
 	# mouse movement
 	if p_event is InputEventMouseMotion:
 		if _tool_active:
-			_toolbar_control.cursor_location_updated(p_viewport_camera, _target, true)
+			_toolbar_control.cursor_location_updated(p_viewport_camera, true)
 			return AfterGUIInput.AFTER_GUI_INPUT_STOP
 	
-		_toolbar_control.cursor_location_updated(p_viewport_camera, _target, false)
+		_toolbar_control.cursor_location_updated(p_viewport_camera, false)
 		return AfterGUIInput.AFTER_GUI_INPUT_PASS
 	
 	# active left-click
 	if p_event is InputEventMouseButton and p_event.button_index == MOUSE_BUTTON_LEFT:
 		if p_event.is_pressed():
 			_tool_active = true
-			_toolbar_control.cursor_location_updated(p_viewport_camera, _target, true)
+			_toolbar_control.cursor_location_updated(p_viewport_camera, true)
 			return AfterGUIInput.AFTER_GUI_INPUT_STOP
 		else:
 			_tool_active = false
