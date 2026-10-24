@@ -45,7 +45,9 @@ func _ready() -> void:
 	_brush_settings = brush_settings_scene.instantiate()
 	_brush_settings.scene_file_path = ""
 	_brush_settings.operation_changed.connect(func (op: Operation):
-		_operation.cursor_exited()
+		if _operation != null:
+			_operation.cursor_exited()
+
 		_operation = op
 	)
 	_brush_settings.sdf_settings_changed.connect(func (strength: float, scale: float):

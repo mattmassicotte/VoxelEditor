@@ -152,6 +152,7 @@ func _set_up() -> void:
 
 func _teardown() -> void:
 	_target.node = null
+	_toolbar_control.target = null
 
 	remove_control_from_container(EditorPlugin.CONTAINER_SPATIAL_EDITOR_MENU, _toolbar_control)
 	_toolbar_control.queue_free()
