@@ -3,7 +3,7 @@ extends EditorPlugin
 
 var _current_brush: Brush = null
 var _current_mode: EditMode = null
-var _sphere_brush := Brush.Sphere.new()
+var _sphere_brush: Brush
 var _current_operation: Operation
 var _target := Target.AbsolutePosition.new()
 var _tool_active: bool = false
@@ -207,21 +207,21 @@ func _on_tool_changed(mode: Toolbar.Mode, brush: Toolbar.Brush) -> void:
 	if _current_brush != null:
 		_current_brush.deactivate()
 
-	match brush:
-		Toolbar.Brush.SPHERE:
-			_current_brush = _sphere_brush
-			_toolbar.install_brush_settings(_sphere_settings)
-			var new_op = Operation.Sphere.new(true)
-			
-			new_op.radius = _sphere_settings.radius
-			new_op.center = _target.location
-			
-			if _current_operation != null:
-				new_op.config = _current_operation.config
-			else:
-				new_op.config = ToolConfiguration.new()
-			
-			_current_operation = new_op
+	#match brush:
+		#Toolbar.Brush.SPHERE:
+			#_current_brush = _sphere_brush
+			#_toolbar.install_brush_settings(_sphere_settings)
+			#var new_op = Operation.Sphere.new(true)
+			#
+			#new_op.radius = _sphere_settings.radius
+			#new_op.center = _target.location
+			#
+			#if _current_operation != null:
+				#new_op.config = _current_operation.config
+			#else:
+				#new_op.config = ToolConfiguration.new()
+			#
+			#_current_operation = new_op
 
 	match mode:
 		Toolbar.Mode.ADD:

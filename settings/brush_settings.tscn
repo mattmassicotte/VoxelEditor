@@ -1,11 +1,9 @@
 [gd_scene format=3 uid="uid://de05owrgklup8"]
 
-[ext_resource type="Script" uid="uid://8n78vpuybsde" path="res://addons/VoxelEditor/settings/brush_settings.gd" id="1_1p8k0"]
-[ext_resource type="Texture2D" uid="uid://bu64i6cpmkr41" path="res://addons/VoxelEditor/images/add_circle.svg" id="1_msurh"]
-[ext_resource type="Texture2D" uid="uid://cr84weo0t6s2q" path="res://addons/VoxelEditor/images/add_box.svg" id="2_rfkf7"]
-[ext_resource type="PackedScene" uid="uid://brpuyk2mesqxv" path="res://addons/VoxelEditor/settings/sdf_settings.tscn" id="4_bppgj"]
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_bppgj"]
+[ext_resource type="Script" uid="uid://8n78vpuybsde" path="res://addons/VoxelEditor/settings/brush_settings.gd" id="1_0brcb"]
+[ext_resource type="Texture2D" uid="uid://bu64i6cpmkr41" path="res://addons/VoxelEditor/images/add_circle.svg" id="2_8r1vq"]
+[ext_resource type="Texture2D" uid="uid://cr84weo0t6s2q" path="res://addons/VoxelEditor/images/add_box.svg" id="3_o6fhm"]
+[ext_resource type="PackedScene" uid="uid://brpuyk2mesqxv" path="res://addons/VoxelEditor/settings/sdf_settings.tscn" id="4_x4gwh"]
 
 [node name="BrushSettings" type="VBoxContainer" unique_id=474377008]
 custom_minimum_size = Vector2(500, 500)
@@ -16,7 +14,7 @@ offset_right = 0.031982422
 offset_bottom = -0.25601196
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_1p8k0")
+script = ExtResource("1_0brcb")
 
 [node name="SelectionContainer" type="HBoxContainer" parent="." unique_id=1748591020]
 custom_minimum_size = Vector2(160, 80)
@@ -30,8 +28,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 toggle_mode = true
 button_pressed = true
-button_group = SubResource("ButtonGroup_bppgj")
-icon = ExtResource("1_msurh")
+icon = ExtResource("2_8r1vq")
 flat = true
 icon_alignment = 1
 expand_icon = true
@@ -41,8 +38,7 @@ custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 3
 toggle_mode = true
-button_group = SubResource("ButtonGroup_bppgj")
-icon = ExtResource("2_rfkf7")
+icon = ExtResource("3_o6fhm")
 flat = true
 icon_alignment = 1
 expand_icon = true
@@ -50,7 +46,7 @@ expand_icon = true
 [node name="HSeparator" type="HSeparator" parent="." unique_id=91660221]
 layout_mode = 2
 
-[node name="SdfSettings" parent="." unique_id=586990403 instance=ExtResource("4_bppgj")]
+[node name="SdfSettings" parent="." unique_id=586990403 instance=ExtResource("4_x4gwh")]
 layout_mode = 2
 
 [node name="HSeparator2" type="HSeparator" parent="." unique_id=877802979]

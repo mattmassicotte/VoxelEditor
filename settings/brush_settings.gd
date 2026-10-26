@@ -7,7 +7,7 @@ signal sdf_settings_changed(strength: float, scale: float)
 
 var _absolute_add_box_settings: Node
 var _absolute_add_sphere_settings: Node
-var _absolute_add_sphere_operation := Operation.Sphere.new(true)
+var _absolute_add_sphere_operation := AbsoluteSphereOperation.new(true)
 var _button_group := ButtonGroup.new()
 var sdf_scale: float:
 	get:
@@ -32,9 +32,10 @@ func _ready() -> void:
 		sdf_settings_changed.emit(value, sdf_scale)
 	)
 
-	var abs_sphere_scene = preload("res://addons/VoxelEditor/scenes/absolute_sphere_settings.tscn")
+	var abs_sphere_scene = preload("res://addons/VoxelEditor/settings/absolute_sphere_settings.tscn")
 	_absolute_add_sphere_settings = abs_sphere_scene.instantiate()
 	_absolute_add_sphere_settings.scene_file_path = ""
+	print(_absolute_add_sphere_settings.get_children())
 	_absolute_add_sphere_operation.radius = _absolute_add_sphere_settings.find_child("RadiusSlider").value
 	_absolute_add_sphere_settings.find_child("RadiusSlider").value_changed.connect(func (value: float):
 		_absolute_add_sphere_operation.radius = value
