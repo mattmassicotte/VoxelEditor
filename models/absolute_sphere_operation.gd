@@ -7,17 +7,12 @@ var radius: float:
 		_indicator.scale = Vector3(radius * 2.0, radius * 2.0, radius * 2.0)
 var _additive: bool
 var _indicator: MeshInstance3D
-var _timer := Timer.new()
 	
 	
 func _init(p_additive: bool):
 	var indicator_scene = preload("res://addons/VoxelEditor/scenes/indicator.tscn")
 	_indicator = indicator_scene.instantiate()
 	_indicator.scene_file_path = "" # make local
-	
-	_timer.timeout.connect(func ():
-		cursor_exited()
-	)
 	_additive = p_additive
 		
 	if _additive:
@@ -26,15 +21,20 @@ func _init(p_additive: bool):
 		_indicator.mesh.material.albedo_color = Color(0.7, 0.1, 0.1, 0.3)
 
 
+func _notification(what: int) -> void:
+	match what:
+		NOTIFICATION_PREDELETE:
+			cursor_exited()
+			_indicator.queue_free()
+
+
 func cursor_exited():
 	var parent = _indicator.get_parent()
 	if parent != null:
 		parent.remove_child(_indicator)
-		parent.remove_child(_timer)
 
 
 func cursor_location_updated(viewport_camera: Camera3D, target: Target, apply: bool) -> void:
-	_timer.start(5)
 	super.cursor_location_updated(viewport_camera, target, apply)
 
 	assert(radius > 0.0)
@@ -51,7 +51,7 @@ func cursor_location_updated(viewport_camera: Camera3D, target: Target, apply: b
 	# a second pass is necessary if we are not using the first texture
 	if _additive and target.tool.texture_index != 0:
 		target.tool.mode = VoxelTool.MODE_TEXTURE_PAINT
-		target.tool.do_sphere(location, radius)
+		target.tool.do_sphere(location, radius * 2.0)
 
 
 func get_affected_volume() -> AABB:
@@ -66,15 +66,7 @@ func get_affected_volume() -> AABB:
 
 
 func get_name() -> String:
-	var mode_name: String
-
-	match config.mode:
-		VoxelTool.Mode.MODE_ADD:
-			mode_name = "add"
-		VoxelTool.Mode.MODE_REMOVE:
-			mode_name = "remove"
-		VoxelTool.Mode.MODE_TEXTURE_PAINT:
-			mode_name = "paint"
+	var mode_name := "add" if _additive else "remove"
 
 	return "<%s absolute sphere %f, %f>" % [mode_name, radius, distance]
 
@@ -95,4 +87,3 @@ func _install_indicator_if_needed(viewport: Viewport):
 		current_parent.remove_child(_indicator)
 
 	viewport.add_child(_indicator)
-	viewport.add_child(_timer)
