@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c66uhw3c34p21"
-path="res://.godot/imported/brush.png-d3fdda33f8eb2dc277ec6b7d7600cb55.ctex"
+uid="uid://dwgo5rwx6l3ym"
+path="res://.godot/imported/focus.svg-ec7123057e7e7ade1b626d63422a315d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/VoxelEditor/images/brush.png"
-dest_files=["res://.godot/imported/brush.png-d3fdda33f8eb2dc277ec6b7d7600cb55.ctex"]
+source_file="res://addons/VoxelEditor/images/focus.svg"
+dest_files=["res://.godot/imported/focus.svg-ec7123057e7e7ade1b626d63422a315d.ctex"]
 
 [params]
 
@@ -38,3 +38,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false
