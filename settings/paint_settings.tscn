@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://ddciipypeu06v"]
+
+[ext_resource type="PackedScene" uid="uid://c4m70nx048me2" path="res://addons/VoxelEditor/views/labelled_slider.tscn" id="1_gf1rl"]
+
+[node name="PaintSettings" type="VBoxContainer" unique_id=2017973171]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RadiusSlider" parent="." unique_id=137689554 instance=ExtResource("1_gf1rl")]
+layout_mode = 2
+label = "Radius:"
+max_value = 10.0
+min_value = 1.0
+value = 1.0

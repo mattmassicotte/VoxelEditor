@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://fwcsfuhstp2n"]
+
+[ext_resource type="Script" uid="uid://cnyarm4on6pi4" path="res://addons/VoxelEditor/scenes/toolbar_control.gd" id="1_u40jv"]
+[ext_resource type="Texture2D" uid="uid://dwgo5rwx6l3ym" path="res://addons/VoxelEditor/images/focus.svg" id="2_ll7fh"]
+[ext_resource type="Texture2D" uid="uid://bx2sxu3wx1qs1" path="res://addons/VoxelEditor/images/palette.svg" id="2_u40jv"]
+
+[node name="ToolbarControl" type="HBoxContainer" unique_id=1058674680]
+custom_minimum_size = Vector2(140, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u40jv")
+
+[node name="BrushButton" type="Button" parent="." unique_id=1141183787]
+custom_minimum_size = Vector2(30, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("2_ll7fh")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="TextureButton" type="Button" parent="." unique_id=1193399305]
+custom_minimum_size = Vector2(30, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("2_u40jv")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="pressed" from="BrushButton" to="." method="_on_brush_button_pressed"]
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
