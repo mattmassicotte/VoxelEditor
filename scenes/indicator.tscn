@@ -1,10 +1,12 @@
 [gd_scene format=3 uid="uid://b1plux8qs1d4c"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sbjjm"]
+resource_local_to_scene = true
 transparency = 1
 albedo_color = Color(0.7, 0.1, 0.1, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_ecxti"]
+resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_sbjjm")
 
 [node name="Indicator" type="MeshInstance3D" unique_id=471449862]

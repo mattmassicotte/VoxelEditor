@@ -9,7 +9,7 @@ var _target := Target.AbsolutePosition.new()
 var _tool_active: bool = false
 var _toolbar: Toolbar
 var _matter_settings: MatterSettings
-var _paint_mode_settings: PaintSettings
+#var _paint_mode_settings: PaintSettings
 var _sphere_settings: SphereSettings
 
 # new stuff
@@ -52,12 +52,12 @@ func _enter_tree() -> void:
 	)
 
 	# mode settings
-	var paint_mode_settings_scene = preload("res://addons/VoxelEditor/scenes/paint_settings.tscn")
-	_paint_mode_settings = paint_mode_settings_scene.instantiate()
-	_paint_mode_settings.scene_file_path = ""
-	_paint_mode_settings.texture_selected.connect(func (value: int):
-		_current_operation.config.texture_index = value
-	)
+	#var paint_mode_settings_scene = preload("res://addons/VoxelEditor/scenes/paint_settings.tscn")
+	#_paint_mode_settings = paint_mode_settings_scene.instantiate()
+	#_paint_mode_settings.scene_file_path = ""
+	#_paint_mode_settings.texture_selected.connect(func (value: int):
+		#_current_operation.config.texture_index = value
+	#)
 	
 	var matter_setings_scene = preload("res://addons/VoxelEditor/scenes/matter_settings.tscn")
 	_matter_settings = matter_setings_scene.instantiate()
@@ -179,15 +179,16 @@ func _reload() -> void:
 
 
 func _on_target_node_changed() -> void:
-	var valid = is_instance_valid(_target.node)
-
-	if valid:
-		_current_brush.activate(_target, _toolbar.mode)
-
-		# this depends on the target node only
-		_paint_mode_settings.target_updated(_target)
-	else:
-		_current_brush.deactivate()
+	return
+	#var valid = is_instance_valid(_target.node)
+#
+	#if valid:
+		#_current_brush.activate(_target, _toolbar.mode)
+#
+		## this depends on the target node only
+		#_paint_mode_settings.target_updated(_target)
+	#else:
+		#_current_brush.deactivate()
 
 
 func _on_cursor_distance_changed(distance: float) -> void:
@@ -232,7 +233,7 @@ func _on_tool_changed(mode: Toolbar.Mode, brush: Toolbar.Brush) -> void:
 			_toolbar.install_mode_settings(_matter_settings)
 		Toolbar.Mode.PAINT:
 			_current_operation.config.mode = VoxelTool.Mode.MODE_TEXTURE_PAINT
-			_toolbar.install_mode_settings(_paint_mode_settings)
+			#_toolbar.install_mode_settings(_paint_mode_settings)
 
 	if _current_brush != null && _target.node != null:
 		_current_brush.activate(_target, mode)

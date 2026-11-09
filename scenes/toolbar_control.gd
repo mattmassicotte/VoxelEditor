@@ -69,7 +69,7 @@ func set_target(value: Target) -> void:
 		target.tool.channel = VoxelBuffer.CHANNEL_SDF
 		target.tool.sdf_strength = _brush_settings.sdf_strength
 		target.tool.sdf_scale = _brush_settings.sdf_scale
-	else:
+	elif _operation != null:
 		_operation.cursor_exited()
 		
 	_brush_settings.target_updated(target)
@@ -77,6 +77,9 @@ func set_target(value: Target) -> void:
 
 
 func cursor_location_updated(viewport_camera: Camera3D, apply: bool) -> void:
+	if _operation == null:
+		return
+
 	_operation.cursor_location_updated(viewport_camera, target, apply)
 
 

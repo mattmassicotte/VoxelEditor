@@ -61,6 +61,10 @@ func _make_texture_child() -> Node:
 	
 
 func target_updated(target: Target) -> void:
+	if target == null:
+		_populate_texture_grid(null)
+		return
+
 	var layered = target.get_terrain_textures()
 
 	_populate_texture_grid(layered)

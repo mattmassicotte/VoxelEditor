@@ -24,7 +24,6 @@ func _init(p_additive: bool):
 func _notification(what: int) -> void:
 	match what:
 		NOTIFICATION_PREDELETE:
-			cursor_exited()
 			_indicator.queue_free()
 
 
@@ -39,7 +38,7 @@ func cursor_location_updated(viewport_camera: Camera3D, target: Target, apply: b
 
 	assert(radius > 0.0)
 		
-	_update_indicator(viewport_camera.get_viewport(), target.tool.mode)
+	_update_indicator(viewport_camera.get_viewport())
 
 	if apply == false:
 		return
@@ -71,7 +70,7 @@ func get_name() -> String:
 	return "<%s absolute sphere %f, %f>" % [mode_name, radius, distance]
 
 
-func _update_indicator(viewport: Viewport, mode: VoxelTool.Mode):
+func _update_indicator(viewport: Viewport):
 	_install_indicator_if_needed(viewport)
 	_indicator.scale = Vector3(radius * 2.0, radius * 2.0, radius * 2.0)
 	_indicator.position = location
