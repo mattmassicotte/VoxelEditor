@@ -37,7 +37,7 @@ func _ready() -> void:
 		if is_target_valid:
 			target.tool.texture_opacity = value
 	)
-	
+		
 	get_parent().add_child(_texture_panel)
 	_texture_panel.add_child(_texture_settings)
 	
@@ -69,6 +69,9 @@ func set_target(value: Target) -> void:
 		target.tool.channel = VoxelBuffer.CHANNEL_SDF
 		target.tool.sdf_strength = _brush_settings.sdf_strength
 		target.tool.sdf_scale = _brush_settings.sdf_scale
+		target.tool.texture_falloff = _texture_settings.texture_falloff
+		target.tool.texture_opacity = _texture_settings.texture_opacity
+		target.tool.texture_index = 0 # this currently cannot be read
 	elif _operation != null:
 		_operation.cursor_exited()
 		

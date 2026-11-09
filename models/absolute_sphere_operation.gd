@@ -1,67 +1,34 @@
 class_name AbsoluteSphereOperation
-extends Operation.AbsoluteLocationOperation
+extends SphereOperation
 
-var radius: float:
-	set(value):
-		radius = value
-		_indicator.scale = Vector3(radius * 2.0, radius * 2.0, radius * 2.0)
+var distance: float
 var _additive: bool
-var _indicator: MeshInstance3D
-	
-	
+
+
 func _init(p_additive: bool):
-	var indicator_scene = preload("res://addons/VoxelEditor/scenes/indicator.tscn")
-	_indicator = indicator_scene.instantiate()
-	_indicator.scene_file_path = "" # make local
+	super()
 	_additive = p_additive
 		
 	if _additive:
-		_indicator.mesh.material.albedo_color = Color(0.1, 0.7, 0.1, 0.3)
+		color = Color(0.1, 0.7, 0.1, 0.3)
 	else:
-		_indicator.mesh.material.albedo_color = Color(0.7, 0.1, 0.1, 0.3)
-
-
-func _notification(what: int) -> void:
-	match what:
-		NOTIFICATION_PREDELETE:
-			_indicator.queue_free()
-
-
-func cursor_exited():
-	var parent = _indicator.get_parent()
-	if parent != null:
-		parent.remove_child(_indicator)
+		color = Color(0.7, 0.1, 0.1, 0.3)
 
 
 func cursor_location_updated(viewport_camera: Camera3D, target: Target, apply: bool) -> void:
-	super.cursor_location_updated(viewport_camera, target, apply)
-
-	assert(radius > 0.0)
-		
+	_calculate_location(viewport_camera, target)
 	_update_indicator(viewport_camera.get_viewport())
 
 	if apply == false:
 		return
 
-	config.apply(target.tool)
 	target.tool.mode = VoxelTool.MODE_ADD if _additive else VoxelTool.MODE_REMOVE
 	target.tool.do_sphere(location, radius)
 
 	# a second pass is necessary if we are not using the first texture
 	if _additive and target.tool.texture_index != 0:
 		target.tool.mode = VoxelTool.MODE_TEXTURE_PAINT
-		target.tool.do_sphere(location, radius * 2.0)
-
-
-func get_affected_volume() -> AABB:
-	assert(radius > 0.0)
-
-	var box = AABB()
-		
-	box.size = Vector3(radius * 2.0 + 1.0, radius * 2.0 + 1.0, radius * 2.0 + 1.0).ceil()
-	box.position = Vector3(location.x - radius, location.y - radius, location.z - radius).floor()
-		
-	return box
+		target.tool.do_sphere(location, radius * 1.5) # this is totally bogus
 
 
 func get_name() -> String:
@@ -70,19 +37,13 @@ func get_name() -> String:
 	return "<%s absolute sphere %f, %f>" % [mode_name, radius, distance]
 
 
-func _update_indicator(viewport: Viewport):
-	_install_indicator_if_needed(viewport)
-	_indicator.scale = Vector3(radius * 2.0, radius * 2.0, radius * 2.0)
-	_indicator.position = location
+func _calculate_location(viewport_camera: Camera3D, target: Target) -> void:
+	assert(distance > 0.0)
 
+	var viewport := viewport_camera.get_viewport()
 
-func _install_indicator_if_needed(viewport: Viewport):
-	var current_parent = _indicator.get_parent()
+	var mouse_pos := viewport.get_mouse_position()
+	var ray_length := distance
+	var ray_origin := viewport_camera.project_ray_origin(mouse_pos)
 	
-	if current_parent == viewport:
-		return
-		
-	if current_parent != null:
-		current_parent.remove_child(_indicator)
-
-	viewport.add_child(_indicator)
+	location = ray_origin + viewport_camera.project_ray_normal(mouse_pos) * ray_length
