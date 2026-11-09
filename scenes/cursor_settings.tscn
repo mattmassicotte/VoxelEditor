@@ -1,6 +1,33 @@
 [gd_scene format=3 uid="uid://jj2en8a1d21m"]
 
-[ext_resource type="Script" uid="uid://cwq83kn7c5y2x" path="res://addons/VoxelEditor/scenes/cursor_settings.gd" id="1_fuxxt"]
+[sub_resource type="GDScript" id="GDScript_xb6tn"]
+script/source = "@tool
+class_name CursorSettings
+extends Control
+
+
+signal cursor_distance_changed(distance: float)
+
+
+var distance: float:
+	get:
+		return $LineEdit.text.to_float()
+	set(value):
+		$LineEdit.text = \"%.1f\" % value
+		cursor_distance_changed.emit(value)
+
+
+func _ready() -> void:
+	distance = 10.0
+
+
+func _on_line_edit_text_changed(new_text: String) -> void:
+	var new_distance = new_text.to_float()
+	
+	assert(new_distance > 0.0)
+	
+	distance = new_distance
+"
 
 [node name="CursorSettings" type="HBoxContainer" unique_id=143547820]
 custom_minimum_size = Vector2(230, 48)
@@ -12,7 +39,7 @@ offset_bottom = -600.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
-script = ExtResource("1_fuxxt")
+script = SubResource("GDScript_xb6tn")
 
 [node name="Label" type="Label" parent="." unique_id=747876747]
 custom_minimum_size = Vector2(80, 0)
@@ -25,5 +52,6 @@ vertical_alignment = 1
 [node name="LineEdit" type="LineEdit" parent="." unique_id=1255521644]
 layout_mode = 2
 size_flags_horizontal = 3
+text = "10.0"
 
 [connection signal="text_changed" from="LineEdit" to="." method="_on_line_edit_text_changed"]

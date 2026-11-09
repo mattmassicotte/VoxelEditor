@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dggpgiqpea123"]
 
-[ext_resource type="Script" uid="uid://yalfd4h8k8a2" path="res://addons/VoxelEditor/scenes/texture_settings.gd" id="1_i6rls"]
+[ext_resource type="Script" uid="uid://yalfd4h8k8a2" path="res://addons/VoxelEditor/settings/texture_settings.gd" id="1_i6rls"]
 
 [node name="TextureSettings" type="VBoxContainer" unique_id=1494886997]
 custom_minimum_size = Vector2(400, 500)

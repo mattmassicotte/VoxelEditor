@@ -18,7 +18,7 @@ var _texture_settings: TextureSettings
 
 
 func _ready() -> void:
-	var texture_settings_scene = preload("res://addons/VoxelEditor/scenes/texture_settings.tscn")
+	var texture_settings_scene = preload("res://addons/VoxelEditor/settings/texture_settings.tscn")
 	_texture_settings = texture_settings_scene.instantiate()
 	_texture_settings.scene_file_path = ""
 	_texture_settings.reset_pressed.connect(func ():

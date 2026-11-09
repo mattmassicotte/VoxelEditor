@@ -13,7 +13,7 @@ grow_vertical = 2
 layout_mode = 2
 label = "Distance:"
 min_horizontal_label_size = 70.0
-max_value = 20.0
+max_value = 50.0
 min_value = 1.0
 value = 10.0
 
