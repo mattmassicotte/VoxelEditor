@@ -1,32 +1,18 @@
-[gd_scene format=3 uid="uid://cabnbplnt3kbm"]
+[gd_scene format=3 uid="uid://cohu21coxxhog"]
 
-[ext_resource type="Script" uid="uid://cgsc23k23t6hg" path="res://addons/VoxelEditor/settings/sphere_settings.gd" id="1_ty7b6"]
+[ext_resource type="PackedScene" uid="uid://c4m70nx048me2" path="res://addons/VoxelEditor/views/labelled_slider.tscn" id="1_ixp6p"]
 
-[node name="SphereSettings" type="HBoxContainer" unique_id=239757149]
-custom_minimum_size = Vector2(200, -1)
-anchors_preset = -1
-anchor_right = 0.13000001
-anchor_bottom = 0.074
-offset_right = 0.23999023
-offset_bottom = 0.048000336
-size_flags_horizontal = 0
-script = ExtResource("1_ty7b6")
+[node name="SphereSettings" type="VBoxContainer" unique_id=733079441]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="SizeSlider" type="HSlider" parent="." unique_id=1818072188]
+[node name="RadiusSlider" parent="." unique_id=137689554 instance=ExtResource("1_ixp6p")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-min_value = 0.1
+label = "Radius:"
+min_horizontal_label_size = 70.0
 max_value = 10.0
-step = 0.1
+min_value = 1.0
 value = 1.0
-metadata/_edit_use_anchors_ = true
-
-[node name="SizeLabel" type="Label" parent="." unique_id=67863056]
-custom_minimum_size = Vector2(10, 0)
-layout_mode = 2
-size_flags_vertical = 1
-text = "1.0"
-vertical_alignment = 1
-
-[connection signal="value_changed" from="SizeSlider" to="." method="_on_size_value_changed"]

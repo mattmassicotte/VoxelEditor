@@ -26,14 +26,8 @@ func cursor_location_updated(viewport_camera: Camera3D, target: Target, apply: b
 	
 	var aabb := get_affected_volume()
 	
-	#print(aabb)
 	target.tool.do_box(aabb.position, aabb.end)
 	
-	#var begin := Vector3i(-10, -2, -5)
-	#var end := Vector3i(10, 2, 5)
-	#
-	#target.tool.do_box(begin, end)
-
 	# a second pass is necessary if we are not using the first texture
 	#if _additive and target.tool.texture_index != 0:
 		#target.tool.mode = VoxelTool.MODE_TEXTURE_PAINT

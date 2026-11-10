@@ -18,11 +18,14 @@ var _absolute_add_sphere_settings: Node
 var _button_group := ButtonGroup.new()
 var _paint_operation := PaintOperation.new()
 var _paint_settings: Node
+var _relative_add_sphere_operation := SurfaceSphereOperation.new(SurfaceSphereOperation.Mode.ADD)
+var _relative_sphere_settings: Node
 @onready var subsettings_container: MarginContainer = $MarginContainer
 @onready var selection_container: HBoxContainer = $SelectionContainer
 
 
 func _ready() -> void:
+	# assign all brush buttons to the same group
 	for child in selection_container.get_children():
 		if child is Button:
 			child.button_group = _button_group
@@ -76,6 +79,16 @@ func _ready() -> void:
 		operation_changed.emit(_absolute_add_box_operation)
 	)
 	
+	var relative_sphere_scene = preload("res://addons/VoxelEditor/settings/sphere_settings.tscn")
+	_relative_sphere_settings = relative_sphere_scene.instantiate()
+	_relative_sphere_settings.scene_file_path = ""
+	
+	_relative_add_sphere_operation.radius = _relative_sphere_settings.find_child("RadiusSlider").value
+	_relative_sphere_settings.find_child("RadiusSlider").value_changed.connect(func (value: float):
+		_relative_add_sphere_operation.radius = value
+		operation_changed.emit(_relative_add_sphere_operation)
+	)
+	
 	var paint_settings_scene = preload("res://addons/VoxelEditor/settings/paint_settings.tscn")
 	_paint_settings = paint_settings_scene.instantiate()
 	_paint_settings.scene_file_path = ""
@@ -116,3 +129,8 @@ func _on_absolute_box_add_button_pressed() -> void:
 func _on_paint_button_pressed() -> void:
 	_install_settings(_paint_settings)
 	operation_changed.emit(_paint_operation)
+
+
+func _on_sphere_add_button_pressed() -> void:
+	_install_settings(_relative_sphere_settings)
+	operation_changed.emit(_relative_add_sphere_operation)
