@@ -11,9 +11,10 @@ var sdf_scale: float:
 var sdf_strength: float:
 	get:
 		return $SdfSettings/StrengthSlider.value
+var _absolute_add_box_operation := AbsoluteBoxOperation.new(true)
 var _absolute_add_box_settings: Node
-var _absolute_add_sphere_settings: Node
 var _absolute_add_sphere_operation := AbsoluteSphereOperation.new(true)
+var _absolute_add_sphere_settings: Node
 var _button_group := ButtonGroup.new()
 var _paint_operation := PaintOperation.new()
 var _paint_settings: Node
@@ -37,6 +38,7 @@ func _ready() -> void:
 	var abs_sphere_scene = preload("res://addons/VoxelEditor/settings/absolute_sphere_settings.tscn")
 	_absolute_add_sphere_settings = abs_sphere_scene.instantiate()
 	_absolute_add_sphere_settings.scene_file_path = ""
+	
 	_absolute_add_sphere_operation.radius = _absolute_add_sphere_settings.find_child("RadiusSlider").value
 	_absolute_add_sphere_settings.find_child("RadiusSlider").value_changed.connect(func (value: float):
 		_absolute_add_sphere_operation.radius = value
@@ -51,14 +53,27 @@ func _ready() -> void:
 	var abs_box_scene = preload("res://addons/VoxelEditor/settings/absolute_box_settings.tscn")
 	_absolute_add_box_settings = abs_box_scene.instantiate()
 	_absolute_add_box_settings.scene_file_path = ""
+	
+	_absolute_add_box_operation.distance = _absolute_add_box_settings.find_child("DistanceSlider").value
+	_absolute_add_box_settings.find_child("DistanceSlider").value_changed.connect(func (value: float):
+		_absolute_add_box_operation.distance = value
+		operation_changed.emit(_absolute_add_box_operation)
+	)
+	
+	_absolute_add_box_operation.length = _absolute_add_box_settings.find_child("LengthSlider").value
 	_absolute_add_box_settings.find_child("LengthSlider").value_changed.connect(func (value: float):
-		print("length: ", value)
+		_absolute_add_box_operation.length = value
+		operation_changed.emit(_absolute_add_box_operation)
 	)
+	_absolute_add_box_operation.width = _absolute_add_box_settings.find_child("WidthSlider").value
 	_absolute_add_box_settings.find_child("WidthSlider").value_changed.connect(func (value: float):
-		print("width: ", value)
+		_absolute_add_box_operation.width = value
+		operation_changed.emit(_absolute_add_box_operation)
 	)
+	_absolute_add_box_operation.height = _absolute_add_box_settings.find_child("HeightSlider").value
 	_absolute_add_box_settings.find_child("HeightSlider").value_changed.connect(func (value: float):
-		print("height: ", value)
+		_absolute_add_box_operation.height = value
+		operation_changed.emit(_absolute_add_box_operation)
 	)
 	
 	var paint_settings_scene = preload("res://addons/VoxelEditor/settings/paint_settings.tscn")
@@ -95,6 +110,7 @@ func _on_absolute_sphere_add_button_pressed() -> void:
 
 func _on_absolute_box_add_button_pressed() -> void:
 	_install_settings(_absolute_add_box_settings)
+	operation_changed.emit(_absolute_add_box_operation)
 
 
 func _on_paint_button_pressed() -> void:

@@ -7,10 +7,11 @@ A Godot editor plugin for working with [godot_voxel](https://github.com/Zylann/g
 Currently, **very** limited.
 
 - Add/Subtract from a `VoxelLodTerrain`
-- Texture Painting
-- Spherical Brushes
+- Texture painting
+- Spherical and box brushes
 - Target visualization
-- Undo Support
+- Absolute and surface-based targetting
+- Undo support
 
 ![Example screenshot](example.png)
 

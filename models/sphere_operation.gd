@@ -16,7 +16,7 @@ var _indicator: MeshInstance3D
 	
 	
 func _init():
-	var indicator_scene = preload("res://addons/VoxelEditor/scenes/indicator.tscn")
+	var indicator_scene = preload("res://addons/VoxelEditor/scenes/sphere_indicator.tscn")
 	_indicator = indicator_scene.instantiate()
 	_indicator.scene_file_path = "" # make local
 

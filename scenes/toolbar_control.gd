@@ -49,6 +49,10 @@ func _ready() -> void:
 			_operation.cursor_exited()
 
 		_operation = op
+		
+		if is_target_valid:
+			var camera := target.node.get_viewport().get_camera_3d()
+			_operation.cursor_location_updated(camera, target, false)
 	)
 	_brush_settings.sdf_settings_changed.connect(func (strength: float, scale: float):
 		if is_target_valid:

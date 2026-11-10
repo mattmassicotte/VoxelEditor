@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://d4ecqb5oi1yu4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j4uaq"]
+transparency = 1
+albedo_color = Color(0.7019608, 0.101960786, 0.101960786, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ecxti"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_j4uaq")
+
+[node name="Indicator" type="MeshInstance3D" unique_id=319627823]
+mesh = SubResource("BoxMesh_ecxti")
