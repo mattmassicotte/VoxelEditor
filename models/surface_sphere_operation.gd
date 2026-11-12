@@ -50,6 +50,11 @@ func cursor_location_updated(viewport_camera: Camera3D, target: Target, apply: b
 			target.tool.mode = VoxelTool.MODE_TEXTURE_PAINT
 
 	target.tool.do_sphere(location, radius)
+	
+	# a second pass is necessary if we are not using the first texture
+	if target.tool.mode == VoxelTool.MODE_ADD and target.tool.texture_index != 0:
+		target.tool.mode = VoxelTool.MODE_TEXTURE_PAINT
+		target.tool.do_sphere(location, radius * 1.4) # this is totally bogus
 
 
 func get_name() -> String:
