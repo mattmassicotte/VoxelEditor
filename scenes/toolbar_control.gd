@@ -50,9 +50,15 @@ func _ready() -> void:
 
 		_operation = op
 		
-		if is_target_valid:
-			var camera := target.node.get_viewport().get_camera_3d()
-			_operation.cursor_location_updated(camera, target, false)
+		if is_target_valid == false:
+			return
+
+		var viewport := target.node.get_viewport()
+		if viewport == null:
+			print("[VoxelEditor] terrain has no viewport")
+			return
+	
+		cursor_location_updated(viewport.get_camera_3d(), false)
 	)
 	_brush_settings.sdf_settings_changed.connect(func (strength: float, scale: float):
 		if is_target_valid:
@@ -85,6 +91,10 @@ func set_target(value: Target) -> void:
 
 func cursor_location_updated(viewport_camera: Camera3D, apply: bool) -> void:
 	if _operation == null:
+		return
+
+	if viewport_camera == null:
+		print("[VoxelEditor] terrain has no active camera")
 		return
 
 	_operation.cursor_location_updated(viewport_camera, target, apply)
