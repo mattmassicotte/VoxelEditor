@@ -1,16 +1,14 @@
 # VoxelEditor
 
-A Godot editor plugin for working with [godot_voxel](https://github.com/Zylann/godot_voxel)
+A Godot editor plugin for working with voxels.
+
+I made this primarily to experiment with in-editor level building. It would never have been possible without [godot_voxel](https://github.com/Zylann/godot_voxel) and I'm deeply appreciative for that project. If you find this useful, I'd love for you to support that project in whatever way you can.
 
 ## Features
 
-Currently, **very** limited.
-
-- Add/Subtract from a `VoxelLodTerrain`
-- Texture painting
-- Spherical and box brushes
-- Target visualization
-- Absolute and surface-based targetting
+- Absolute and surface-based targeting
+- Spherical, box brushes, and texture painting
+- Texture palette
 - Undo support
 
 ![Example screenshot](example.png)
@@ -21,8 +19,7 @@ Currently, **very** limited.
 - Drop this into your `/addons` directory
 - Enable the plugin with Project > Project Settings > Plugins
 - Select a `VoxelTerrain` node in the spacial editor
-
-Right now, the texture painting tool only works with a mesher in mixel4 texturing mode.
+- Ensure that **both** "Editor View Follow Camera" **and** "Enable Editor Viewer" are enabled for your terrain node
 
 ## Texturing
 
@@ -32,7 +29,9 @@ Getting texturing working is not very straightforward. This is an area I'd reall
 - Set the mesher's texturing mode to `Mixel4`
 - Assign a new `ShaderMaterial` to the terrain
 - Use the "mixel4_array.gdshader" shader for that material, which comes from this plugin
-- Assign its "U Albedo Array" to a texture array with your textures
+- Assign its "U Albedo Array" to a texture array with your textures (max of 16)
+
+The in-editor texture palette currently needs to read shader data. So if you use an alternative system it must have an identical structure or the texturing palette will not work.
 
 ## Contributing and Collaboration
 
